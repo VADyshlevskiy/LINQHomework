@@ -40,22 +40,16 @@ namespace LINQHomework
         }
     }
 
-    public class Person
-    {
-        public int Age;
-        public string Name;
-
-    }
-
     public static class IEnumerableExtensions
     {
-
         public static IEnumerable<T> Top<T>(this IEnumerable<T> list, double X)
         {
             IEnumerable<T> result = null;
+
             try
-            { 
+            {
                 if (X < 1 || X > 100) throw new ArgumentException();
+
                 var elementCount = (int)Math.Ceiling((double)list.Count() * X / 100);
                 result = list.OrderByDescending(x => x).Take(elementCount);
             }
@@ -67,17 +61,19 @@ namespace LINQHomework
             {
                 Console.WriteLine(e.Message);
             }
+
             return result;
         }
 
         public static IEnumerable<T> Top<T>(this IEnumerable<T> list, double X, Func<T, int> operation)
         {
             IEnumerable<T> result = null;
+
             try
             {
                 if (X < 1 || X > 100) throw new ArgumentException();
+
                 var elementCount = (int)Math.Ceiling((double)list.Count() * X / 100);
-               // list.Select( operation(x));
                 result = list.OrderByDescending(x => operation(x)).Take(elementCount);
             }
             catch (ArgumentException e)
@@ -88,7 +84,15 @@ namespace LINQHomework
             {
                 Console.WriteLine(e.Message);
             }
+
             return result;
         }
+    }
+
+    public class Person // Для тестирования
+    {
+        public int Age;
+        public string Name;
+
     }
 }
